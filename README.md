@@ -1,2 +1,2 @@
 # OsLibCore.Test
-Tests for OsLibCore as Unit project
+Tests for OsLibCore as XUnit test project
