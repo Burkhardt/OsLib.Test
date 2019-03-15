@@ -39,7 +39,7 @@ Start VS Code
 
 Make sure you have the necessary plugins
 
-![Plugins](Plugins.jpg)
+![PlugIns](Plugins.jpg)
 
     * .NET Core Test Explorer
     * C#
