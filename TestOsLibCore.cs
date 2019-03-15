@@ -410,15 +410,49 @@ namespace OsLibCore.Tests
             var info = new NyokaRemoteInfo
             {
                 RepositoryServer = null,
-                ZementisServer = "http://localhost:7007",
-                ZementisModeler = null
+                ZementisServer = null,
+                ZementisModeler = "http://localhost:7007"
             };
+            #region write nyokaremote file in current directory
             var nrFile = new JsonFile<NyokaRemoteInfo>(nyokaremoteFileName, readOnly: false);
             nrFile["default"] = info;
-            nrFile.Save(force: true);   // should not be neccessary to force
+            nrFile.Save(force: true);
+            #endregion
             Assert.True(File.Exists(nrFileNameWithPath));
+            #region read nyokaremote file in current directory
+            var nrFile0 = new JsonFile<NyokaRemoteInfo>(nyokaremoteFileName, readOnly: false);
+            var info0 = nrFile0["default"];
+            #endregion
+            Assert.Equal(info.ZementisModeler, info0.ZementisModeler);
+            #region set new values and save it back to the file
+            info0.ZementisServer = "https://zserver.zmod.org";
+            nrFile0["default"] = info0;
+            nrFile0.Save(force: true);   // should not be neccessary to force
+            #endregion
+            Assert.True(File.Exists(nrFileNameWithPath));
+            #region readonly test for nyokaremote file
+            var nrFileReadOnly = new JsonFile<NyokaRemoteInfo>(nyokaremoteFileName);    // readonly is default
+            var info2 = nrFileReadOnly["default"];
+            Assert.Equal(info.ZementisModeler, info2.ZementisModeler);
+            info2.RepositoryServer = "https://dlexp.zmod.org";
+            nrFileReadOnly["default"] = info2;
+            try {
+                nrFileReadOnly.Save();
+                Assert.True(false, "IOException was supposed to get thrown");
+            }
+            catch (IOException ex)
+            {
+                Assert.True(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false, $"wrong exception type {ex.GetType()} was thrown: {ex.Message}");
+            }
+            #endregion
+            #region clean up test
             //nrFile.rm()   // not implemented
             File.Delete(nrFileNameWithPath);
+            #endregion
             Assert.False(File.Exists(nrFileNameWithPath));
         }
         [Fact]
