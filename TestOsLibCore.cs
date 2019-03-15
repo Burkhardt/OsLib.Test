@@ -12,6 +12,7 @@ using HDitem.Persist;
 //using HDitem.Server.Configuration;
 using System.Diagnostics;
 using RaiUtilsCore;
+using NyokaServerConfiguration;
 
 namespace OsLibCore.Tests
 {
@@ -384,6 +385,77 @@ namespace OsLibCore.Tests
             {
                 Assert.True(false, "Os.DropboxRoot not working - file permission?");
             }
+        }
+        [Fact]
+        public void TestJsonFileNyokaRemote()
+        {
+
+        }
+    }
+    public class NyokaTest
+    {
+        static internal string TestDir => GeneralTestSettings.Tests.TestDir;
+        public NyokaTest()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+        [Fact]
+        public void TestNyokaRemote()
+        {
+            const string nyokaremoteFileName = ".nyokaremotetest.json";
+            var dir = Directory.GetCurrentDirectory();
+            var nrFileNameWithPath = $"{dir}{Os.DIRSEPERATOR}{nyokaremoteFileName}";
+            var info = new NyokaRemoteInfo
+            {
+                RepositoryServer = null,
+                ZementisServer = "http://localhost:7007",
+                ZementisModeler = null
+            };
+            var nrFile = new JsonFile<NyokaRemoteInfo>(nyokaremoteFileName, readOnly: false);
+            nrFile["default"] = info;
+            nrFile.Save(force: true);   // should not be neccessary to force
+            Assert.True(File.Exists(nrFileNameWithPath));
+            //nrFile.rm()   // not implemented
+            File.Delete(nrFileNameWithPath);
+            Assert.False(File.Exists(nrFileNameWithPath));
+        }
+        [Fact]
+        public void TestCreateTextFileHome()
+        {
+            // this test does not really challange the delay caused by massive parallel change operations in Dropbox
+            var tf = new TextFile("~/TestTextFileHome.txt");
+            tf.Append("Hallo");
+            tf.Append("World");
+            tf[6] = "Seventh line";   // should not throw an exception but extend the size of the collection
+            tf[999] = "Line 1000";
+            tf.Save(backup: true);
+            Assert.True(File.Exists(tf.FullName));
+            tf.rm();
+            Assert.False(File.Exists(tf.FullName), "File is supposed to have vanished by now - not in dropbox => no delay.");
+        }
+        [Fact]
+        public void TestCreateTextFileCurrent()
+        {
+            var tf = new TextFile("./TestCreateTextFileCurrent.txt");
+            tf[6] = "Seventh line";   // should not throw an exception but extend the size of the collection
+            tf[999] = "Line 1000";
+            tf.Save(backup: false);
+            Assert.True(File.Exists(tf.FullName));
+            tf.rm();
+            Assert.False(File.Exists(tf.FullName), "File is supposed to have vanished by now - not in dropbox => no delay.");
+        }
+        [Fact]
+        public void TestCreateTextFileParent()
+        {
+            var tf = new TextFile("../TestCreateTextFileParent.txt");
+            tf[4] = "Line 5";   // should not throw an exception but extend the size of the collection
+            tf[799] = "Line 800";
+            tf.Save(backup: false);
+            Assert.True(File.Exists(tf.FullName));
+            tf.rm();
+            Assert.False(File.Exists(tf.FullName), "File is supposed to have vanished by now - not in dropbox => no delay.");
         }
     }
 }
