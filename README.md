@@ -16,6 +16,7 @@ This is my recommendation for a test-first solution setup using these projects:
 Now we have 6 projects in subdirectories.
 
 ![screenshot of folders](FolderStructure.jpg)
+
 Create a solution
 
     dotnet new sln
