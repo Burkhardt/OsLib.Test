@@ -50,3 +50,5 @@ Make sure you have the necessary plugins
 Switch to Test Explorer
 
 ![TestFirst](TestFirst.jpg)
+
+Now you can start any unit test on the vright side via `Debug` or on the left side tapping the run button in the test explorer.
