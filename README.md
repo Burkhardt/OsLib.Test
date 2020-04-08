@@ -7,9 +7,9 @@ This is my recommendation for a test-first solution setup using these projects:
     mkdir ~/ProjectsCoreGitHub/Source
     cd ~/ProjectsCoreGitHub/Source
     git clone https://github.com/Burkhardt/Persist.git
-    git clone https://github.com/Burkhardt/OsLibCore.Test.git
+    git clone https://github.com/Burkhardt/RaiCore.Test.git
     git clone https://github.com/Burkhardt/nyokacli.git
-    git clone https://github.com/Burkhardt/OsLibCore.git
+    git clone https://github.com/Burkhardt/OsLib.git
     git clone https://github.com/Burkhardt/JsonPit.git
     git clone https://github.com/Burkhardt/RaiUtils.git
 
@@ -23,11 +23,11 @@ Create a solution
 
 Creates a solution file - it's empty yet.
 
-    dotnet sln add HDitem.Persist
+    dotnet sln add Persist
     dotnet sln add JsonPit
     dotnet sln add nyokacli
-    dotnet sln add OsLibCore
-    dotnet sln add OsLibCore.Test
+    dotnet sln add OsLib
+    dotnet sln add RaiCore.Test
     dotnet sln add RaiUtils
 
 The use of JsonFile for `.nyokaremote.json` is shown in a unit test:
