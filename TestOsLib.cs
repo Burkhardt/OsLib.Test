@@ -5,16 +5,14 @@ using System.Collections;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OsLibCore;
+using OsLib;
 using System.IO;
-//using System.Management;
-using HDitem.Persist;
-//using HDitem.Server.Configuration;
+using Persist;
 using System.Diagnostics;
-using RaiUtilsCore;
+using RaiUtils;
 using NyokaServerConfiguration;
 
-namespace OsLibCore.Tests
+namespace OsLib.Tests
 {
     #region TODO: get all the OsLib tests and insert them here
     #endregion
@@ -440,7 +438,7 @@ namespace OsLibCore.Tests
                 nrFileReadOnly.Save();
                 Assert.True(false, "IOException was supposed to get thrown");
             }
-            catch (IOException ex)
+            catch (IOException )
             {
                 Assert.True(true);
             }
