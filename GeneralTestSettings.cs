@@ -1,4 +1,4 @@
-using OperatingSystemCore;
+using OsLib;
 
 namespace GeneralTestSettings
 {
