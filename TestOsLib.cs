@@ -335,8 +335,7 @@ namespace OsLib.Tests
         // 	Debug.WriteLine("dt0: {0} - dt1: {1} - dt2: {2} - dt3: {3} - dt4: {4} - dt5: {5} - dt6: {6} - dt7: {7} - dt8: {8} - dt9: {9}/ntotal: {10}", t1 - t0, t2 - t1, t3 - t2, t4 - t3, t5 - t4, t6 - t5, t7 - t6, t8 - t7, t9 - t8, t10-t9, tEnd - t0);
         // }
     }
-
-    public class TestOsLibCore
+    public class OsLibTest
     {
         static internal string TestDir => GeneralTestSettings.Tests.TestDir;
         // [Fact]
