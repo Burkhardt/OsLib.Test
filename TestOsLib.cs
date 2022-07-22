@@ -123,8 +123,8 @@ namespace OsLib.Tests
 		[Fact]
 		public void TestRaiPath()
 		{
-			string s = "/usr/bin/test.txt";
-			var p = new RaiPath(s);
+			string fileName = "/usr/bin/test.txt";
+			var p = new RaiPath(fileName);
 			Assert.Equal(p.Path, $"{Os.DIRSEPERATOR}usr{Os.DIRSEPERATOR}bin{Os.DIRSEPERATOR}");
 			Assert.Equal(p.Path, Os.NormSeperator("/usr/bin/"));
 			p /= "test";
